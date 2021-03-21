@@ -1,0 +1,12 @@
+
+GET localhost:8080/hello-world
+
+###
+
+GET localhost:8080/the-answer
+
+###
+
+GET localhost:8080/th
+
+###
