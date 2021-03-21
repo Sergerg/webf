@@ -8,16 +8,19 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import serger.webf.beads.DefaultDemoService;
-import serger.webf.beads.DemoService;
+import serger.webf.beans.DefaultDemoService;
+import serger.webf.beans.DemoService;
+import serger.webf.beans.repo.UsersRepo;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @SpringBootApplication
+@EnableJpaRepositories
 public class WebfApplication implements ApplicationContextInitializer<GenericApplicationContext> {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -63,7 +66,7 @@ public class WebfApplication implements ApplicationContextInitializer<GenericApp
         applicationContext.registerBean("DemoService",
                 DemoService.class,
                 () -> new DefaultDemoService(
-                        //applicationContext.getBean(NoteCrudRepository.class)
+                        applicationContext.getBean(UsersRepo.class)
                 )
                 //, bd -> bd.setAutowireCandidate(true)
         );
